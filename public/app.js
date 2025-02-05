@@ -125,7 +125,7 @@ function press(ev) {
     // ctx.lineTo(x, y);
     // ctx.stroke();
     if (typeof (conn) == 'object' && conn.open) {
-        conn.send({acc: 'press', x: x, y: y});
+        conn.send({acc: 'press', x: x, y: y, color: selfColor});
     }
 
     function drag(ev) {
@@ -142,7 +142,7 @@ function press(ev) {
             prevX = x;
             prevY = y;
             if (typeof (conn) == 'object' && conn.open) {
-                conn.send({acc: 'stroke', x: x, y: y});
+                conn.send({acc: 'stroke', x: x, y: y, color: selfColor});
             }
         }
     }

@@ -2,16 +2,18 @@ let peer = null;
 let conn = null;
 const ourPeerEl = document.getElementById('self-id');
 const remotePeerEl = document.getElementById('remote-id');
+const updateSelfIdButton = document.getElementById('update-self-id');
 const connectButton = document.getElementById('connect');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+
 let prevX = null;
 let prevY = null;
+let selfColor = 'black';
 
-let color = 'black';
 document.querySelector('.tool-color').addEventListener('click', function (e) {
-    color = e.target.style.backgroundColor;
-    ctx.strokeStyle = color;
+    selfColor = e.target.style.backgroundColor;
+    ctx.strokeStyle = selfColor;
 })
 
 function _init() {
@@ -55,19 +57,25 @@ function handleData(data) {
     if (data.acc == "stroke") {
         let x = data.x;
         let y = data.y;
+        let color = data.color;
 
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(x, y);
+        ctx.strokeStyle = color;
         ctx.stroke();
         prevX = x;
         prevY = y;
+        ctx.strokeStyle = selfColor;
     } else if (data.acc == "press") {
         let x = data.x;
         let y = data.y;
+        let color = data.color;
+        ctx.strokeStyle = color;
         ctx.beginPath();
         prevX = x;
         prevY = y;
+        ctx.strokeStyle = selfColor;
     }
 }
 
@@ -82,6 +90,12 @@ function setupConnectionForm() {
         }
         return false;
     };
+
+    updateSelfIdButton.onclick = function (ev) {
+        ev.preventDefault();
+        setNewPeerId(ourPeerEl.value);
+        return false;
+    }
 }
 
 

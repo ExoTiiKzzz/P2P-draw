@@ -4,7 +4,6 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Peer to Paint</title>
-    <link href="style.css" rel="stylesheet" type="text/css">
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -13,22 +12,18 @@
 
 <div class="p-5 flex justify-center items-center flex-col gap-5">
     <form id="connect-form" name="connect">
-    <span>
-        <label for="self-id"> Give your ID to a friend:  </label>
+        <label for="self-id"> Give your ID to a friend: </label>
         <input id="self-id" name="id" type="text"/>
         <button id="update-self-id">Save</button>
-    </span>
 
-        <span>
         <label for="remote-id"> Or connect to: </label>
         <input id="remote-id" type="text"/>
-    </span>
         <input id="connect" type="submit" value="connect"/>
     </form>
 
     <div class="flex flex-col gap-2">
         <div class="border border-black rounded-md overflow-hidden">
-            <canvas height="400" width="900" id="canvas"></canvas>
+            <canvas height="400" id="canvas" width="900"></canvas>
         </div>
         <div class="flex gap-2">
             <button class="h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-pen">
@@ -40,17 +35,18 @@
             <button class="h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-eraser">
                 <i class="fas fa-eraser"></i>
             </button>
-            <button data-color="#0000FF"
-                    class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-blue-500"></button>
-            <button data-color="#FF0000"
-                    class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-red-500"></button>
-            <button data-color="#008000"
-                    class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-green-500"></button>
-            <button data-color="#FFFF00"
-                    class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-yellow-500"></button>
-            <button data-color="#FFFFFF"
-                    class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-black"></button>
-            <button class="ml-auto h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-reset">
+            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-blue-500"
+                    data-color="#0000FF"></button>
+            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-red-500"
+                    data-color="#FF0000"></button>
+            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-green-500"
+                    data-color="#008000"></button>
+            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-yellow-500"
+                    data-color="#FFFF00"></button>
+            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-black"
+                    data-color="#FFFFFF"></button>
+            <button class="ml-auto h-6 aspect-square flex justify-center items-center border p-2 rounded"
+                    id="tool-reset">
                 <i class="fas fa-trash"></i>
             </button>
         </div>

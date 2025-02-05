@@ -4,6 +4,7 @@ const ourPeerEl = document.getElementById('self-id');
 const remotePeerEl = document.getElementById('remote-id');
 const updateSelfIdButton = document.getElementById('update-self-id');
 const connectButton = document.getElementById('connect');
+const connectForm = document.getElementById('connect-form');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -67,6 +68,10 @@ function handleIncomingConnection(_conn) {
     connForm.style.visibility = 'hidden';
 
     conn.on('data', handleData);
+    conn.on('close', function () {
+        connectForm.style.visibility = 'visible';
+        alert('connection closed');
+    });
 }
 
 function handleData(data) {
@@ -104,8 +109,7 @@ function setupConnectionForm() {
             localStorage.setItem('remote-id', remotePeerEl.value);
             conn = peer.connect(remotePeerEl.value);
             console.log('connecting...');
-            let connForm = document.getElementById('connect-form');
-            connForm.style.visibility = 'hidden';
+            connectForm.style.visibility = 'hidden';
         }
         return false;
     };

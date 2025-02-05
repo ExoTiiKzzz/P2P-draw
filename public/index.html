@@ -1,100 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Peer to Paint</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
-	<script type="text/javascript" src="Canvas.js"></script>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Peer to Paint</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="Canvas.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
-<script>
-
-window.onload = _init;
-
-function _init(){
-	_initCanvas();
-	let id = document.getElementById("peer-id-in");
-	let remote = document.getElementById("remotePeer");
-	let button = document.getElementById("connect");
-	let prevX = null;
-	let prevY = null;
-	let peer;
-
-	 	peer = new Peer(/*ev.target.value,*/ {host:'/', path:'peerServer', port:location.port});
-
-	 	peer.on('open', function(id){
-	 		console.log("peer created", id);
-	 		let idel = document.getElementById('peer-id');
-	 		idel.value = id;
-	 	});
-
-	 	peer.on('connection', function(_conn) {
-
-	 		conn = _conn;
-	 		console.log('incoming connection from %s', _conn.peer);
-
-	 		if(peer.connections[_conn.peer].length == 1){
-	 		 	conn = peer.connect(_conn.peer);
-	 		}
-
-
-	 		let connForm = document.getElementById('connect-form');
-	 		connForm.style.visibility = 'hidden';
-
-	 		conn.on('data', function(data){
-	 		  if(data.acc == "stroke"){
-	 		  	let x = data.x;
-	 			let y = data.y;
-
-	 			ctx.beginPath();
-	 			ctx.moveTo(prevX, prevY);
-	 		  	ctx.lineTo(x, y);
-	 		  	ctx.stroke();
-	 		  	// console.log(x, y, prevX, prevY);
-	 		  	prevX = x;
-	 		  	prevY = y;
-	 		  }
-	 		  else if(data.acc == "press"){
-	 	  		let x = data.x ;
-	 	  		let y = data.y ;
-	 		  	ctx.beginPath();
-	 		  	prevX = x;
-	 		  	prevY = y;
-	 		  }
-	 		});
-	 	});
-
-	button.onclick = function(ev){
-		ev.preventDefault();
-		if(remote.value != null){
-			conn = peer.connect(remote.value);
-			console.log('connecting...');
-	 		let connForm = document.getElementById('connect-form');
-	 		connForm.style.visibility = 'hidden';
-		}
-		return false;
-	};
-}
-</script>
-
-<div>
- <form name="connect" id="connect-form">
+<div class="container">
+    <form id="connect-form" name="connect">
 	<span>
 		<label for="peer-id"> Give your ID to a friend:  </label>
-		<input name="id" id="peer-id" type="text" readonly/>
+		<input id="peer-id" name="id" readonly type="text"/>
 	</span>
 
-	<span>
+        <span>
 		<label for="remotePeer"> Or connect to: </label>
 		<input id="remotePeer" type="text"/>
 	</span>
-	<input id="connect" type="submit" value="connect"/>
-</form>
+        <input id="connect" type="submit" value="connect"/>
+    </form>
 
-<canvas id="canvas" width="1000" height="600"></canvas>
+    <canvas height="600" id="canvas" width="1000"></canvas>
 </div>
+<script defer src="app.js"></script>
 </body>
 </html>

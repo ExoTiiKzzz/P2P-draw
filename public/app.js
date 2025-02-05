@@ -13,7 +13,6 @@ let selfColor = 'black';
 
 document.querySelectorAll('.tool-color').forEach(function (el) {
     el.addEventListener('click', function () {
-        console.log(el.dataset.color);
         selfColor = el.dataset.color;
         ctx.strokeStyle = selfColor;
     })
@@ -21,6 +20,7 @@ document.querySelectorAll('.tool-color').forEach(function (el) {
 
 document.querySelector('#tool-reset').addEventListener('click', function (e) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    conn.send({acc: 'reset'});
 })
 
 function _init() {
@@ -89,6 +89,8 @@ function handleData(data) {
         prevX = x;
         prevY = y;
         ctx.strokeStyle = selfColor;
+    } else if (data.acc === "reset") {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
 

@@ -1,5 +1,5 @@
 let peer = null;
-const ourPeerEl = document.getElementById('peer-id');
+const ourPeerEl = document.getElementById('self-id');
 const remotePeerEl = document.getElementById('remote-id');
 const connectButton = document.getElementById('connect');
 const canvas = document.getElementById('canvas');
@@ -14,7 +14,9 @@ function _init() {
 }
 
 function setNewPeerId(newId) {
-    peer.destroy();
+    if (peer != null) {
+        peer.destroy();
+    }
     peer = new Peer(newId, {
         host: '10.148.106.161',
         path: 'peerServer',
@@ -22,8 +24,7 @@ function setNewPeerId(newId) {
     });
 
     peer.on('open', function (id) {
-        let idel = document.getElementById('peer-id');
-        idel.value = id;
+        ourPeerEl.value = id;
     });
 
     peer.on('connection', handleIncomingConnection);

@@ -12,22 +12,38 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container flex justify-center items-center flex-col gap-5">
     <form id="connect-form" name="connect">
-	<span>
-		<label for="peer-id"> Give your ID to a friend:  </label>
-		<input id="peer-id" name="id" readonly type="text"/>
-	</span>
+    <span>
+        <label for="self-id"> Give your ID to a friend:  </label>
+        <input id="self-id" name="id" readonly type="text"/>
+    </span>
 
         <span>
-		<label for="remotePeer"> Or connect to: </label>
-		<input id="remotePeer" type="text"/>
-	</span>
+        <label for="remote-id"> Or connect to: </label>
+        <input id="remote-id" type="text"/>
+    </span>
         <input id="connect" type="submit" value="connect"/>
     </form>
 
-    <canvas height="600" id="canvas" width="1000"></canvas>
+    <div class="max-w-5xl w-full flex flex-col gap-2">
+        <div class="w-full h-full border border-black">
+            <canvas class="w-full h-full" id="canvas"></canvas>
+        </div>
+        <div class="flex gap-2">
+            <button class="h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-pen">
+                <i class="fas fa-pen"></i>
+            </button>
+            <button class="h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-brush">
+                <i class="fas fa-paint-brush"></i>
+            </button>
+            <button class="h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-eraser">
+                <i class="fas fa-eraser"></i>
+            </button>
+        </div>
+    </div>
 </div>
 <script defer src="app.js"></script>
 </body>
 </html>
+

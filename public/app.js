@@ -1,12 +1,21 @@
+let peer = null;
+const ourPeerEl = document.getElementById('peer-id');
+const remotePeerEl = document.getElementById('remote-id');
+const connectButton = document.getElementById('connect');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let prevX = null;
+let prevY = null;
+
 function _init() {
     _initCanvas();
-    setupPeer();
+    setNewPeerId(ourPeerEl.value);
     setupConnectionForm();
 }
 
-function setupPeer() {
-    let id = document.getElementById("peer-id-in");
-    let peer = new Peer({
+function setNewPeerId(newId) {
+    peer.destroy();
+    peer = new Peer(newId, {
         host: '10.148.106.161',
         path: 'peerServer',
         port: location.port
@@ -55,13 +64,10 @@ function handleData(data) {
 }
 
 function setupConnectionForm() {
-    let remote = document.getElementById("remotePeer");
-    let button = document.getElementById("connect");
-
-    button.onclick = function (ev) {
+    connectButton.onclick = function (ev) {
         ev.preventDefault();
-        if (remote.value != null) {
-            let conn = peer.connect(remote.value);
+        if (remotePeerEl.value != null) {
+            let conn = peer.connect(remotePeerEl.value);
             console.log('connecting...');
             let connForm = document.getElementById('connect-form');
             connForm.style.visibility = 'hidden';
@@ -69,9 +75,5 @@ function setupConnectionForm() {
         return false;
     };
 }
-
-let prevX = null;
-let prevY = null;
-let peer;
 
 _init();

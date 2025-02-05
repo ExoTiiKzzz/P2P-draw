@@ -20,6 +20,7 @@ document.querySelectorAll('.tool-color').forEach(function (el) {
 
 document.querySelector('#tool-reset').addEventListener('click', function (e) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    console.log('reset');
     conn.send({acc: 'reset'});
 })
 

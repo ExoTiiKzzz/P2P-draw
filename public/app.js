@@ -12,7 +12,7 @@ let prevY = null;
 let selfColor = 'black';
 
 document.querySelectorAll('.tool-color').forEach(function (el) {
-    el.addEventListener('click', function (e) {
+    el.addEventListener('click', function () {
         console.log(el.dataset.color);
         selfColor = el.dataset.color;
         ctx.strokeStyle = selfColor;
@@ -21,6 +21,10 @@ document.querySelectorAll('.tool-color').forEach(function (el) {
 
 function _init() {
     _initCanvas();
+    let storedId = localStorage.getItem('peer-id');
+    if (storedId != null) {
+        ourPeerEl.value = storedId;
+    }
     setNewPeerId(ourPeerEl.value);
     setupConnectionForm();
 }
@@ -46,7 +50,7 @@ function handleIncomingConnection(_conn) {
     conn = _conn;
     console.log('incoming connection from %s', _conn.peer);
 
-    if (peer.connections[_conn.peer].length == 1) {
+    if (peer.connections[_conn.peer].length === 1) {
         conn = peer.connect(_conn.peer);
     }
 
@@ -57,24 +61,22 @@ function handleIncomingConnection(_conn) {
 }
 
 function handleData(data) {
-    if (data.acc == "stroke") {
+    if (data.acc === "stroke") {
         let x = data.x;
         let y = data.y;
-        let color = data.color;
 
         ctx.beginPath();
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(x, y);
-        ctx.strokeStyle = color;
+        ctx.strokeStyle = data.color;
         ctx.stroke();
         prevX = x;
         prevY = y;
         ctx.strokeStyle = selfColor;
-    } else if (data.acc == "press") {
+    } else if (data.acc === "press") {
         let x = data.x;
         let y = data.y;
-        let color = data.color;
-        ctx.strokeStyle = color;
+        ctx.strokeStyle = data.color;
         ctx.beginPath();
         prevX = x;
         prevY = y;
@@ -83,6 +85,8 @@ function handleData(data) {
 }
 
 function setupConnectionForm() {
+
+
     connectButton.onclick = function (ev) {
         ev.preventDefault();
         if (remotePeerEl.value != null) {
@@ -96,6 +100,7 @@ function setupConnectionForm() {
 
     updateSelfIdButton.onclick = function (ev) {
         ev.preventDefault();
+        localStorage.setItem('peer-id', ourPeerEl.value);
         setNewPeerId(ourPeerEl.value);
         return false;
     }
@@ -131,7 +136,7 @@ function press(ev) {
     function drag(ev) {
         let x = ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - canvas.offsetLeft;
         let y = ev.clientY + document.body.scrollTop + document.documentElement.scrollTop - canvas.offsetTop;
-        if (x != prevX || y != prevY) {
+        if (x !== prevX || y !== prevY) {
             ctx.beginPath();
             ctx.moveTo(prevX, prevY);
             ctx.lineTo(x, y);

@@ -25,9 +25,13 @@ document.querySelector('#tool-reset').addEventListener('click', function (e) {
 
 function _init() {
     _initCanvas();
-    let storedId = localStorage.getItem('peer-id');
-    if (storedId != null) {
-        ourPeerEl.value = storedId;
+    let selfStoredId = localStorage.getItem('self-id');
+    if (selfStoredId != null) {
+        ourPeerEl.value = selfStoredId;
+    }
+    let remoteStoredId = localStorage.getItem('remote-id');
+    if (remoteStoredId != null) {
+        remotePeerEl.value = remoteStoredId;
     }
     setNewPeerId(ourPeerEl.value);
     setupConnectionForm();
@@ -94,6 +98,7 @@ function setupConnectionForm() {
     connectButton.onclick = function (ev) {
         ev.preventDefault();
         if (remotePeerEl.value != null) {
+            localStorage.setItem('remote-id', remotePeerEl.value);
             conn = peer.connect(remotePeerEl.value);
             console.log('connecting...');
             let connForm = document.getElementById('connect-form');
@@ -104,7 +109,7 @@ function setupConnectionForm() {
 
     updateSelfIdButton.onclick = function (ev) {
         ev.preventDefault();
-        localStorage.setItem('peer-id', ourPeerEl.value);
+        localStorage.setItem('self-id', ourPeerEl.value);
         setNewPeerId(ourPeerEl.value);
         return false;
     }

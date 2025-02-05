@@ -1,0 +1,15 @@
+{
+  "name": "P2PDraw",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node peerServer.js"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "peer": "1.0.2",
+    "express": "4.21.2",
+    "serve-static": "1.16.2"
+  },
+  "type": "module"
+}

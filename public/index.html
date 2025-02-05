@@ -16,22 +16,18 @@ window.onload = _init;
 
 function _init(){
 	_initCanvas();
-	var id = document.getElementById("peer-id-in");
-	var remote = document.getElementById("remotePeer");
-	var button = document.getElementById("connect");
-	var prevX = null;
-	var prevY = null;
-	var peer;
+	let id = document.getElementById("peer-id-in");
+	let remote = document.getElementById("remotePeer");
+	let button = document.getElementById("connect");
+	let prevX = null;
+	let prevY = null;
+	let peer;
 
-
-
-
-	// id.onchange = function(ev){
 	 	peer = new Peer(/*ev.target.value,*/ {host:'/', path:'peerServer', port:location.port});
 
 	 	peer.on('open', function(id){
 	 		console.log("peer created", id);
-	 		var idel = document.getElementById('peer-id');
+	 		let idel = document.getElementById('peer-id');
 	 		idel.value = id;
 	 	});
 
@@ -45,15 +41,13 @@ function _init(){
 	 		}
 
 
-	 		var connForm = document.getElementById('connect-form');
+	 		let connForm = document.getElementById('connect-form');
 	 		connForm.style.visibility = 'hidden';
 
 	 		conn.on('data', function(data){
 	 		  if(data.acc == "stroke"){
-	 		  	var x = data.x;
-	 		  	// + document.body.scrollLeft + document.documentElement.scrollLeft - canvas.offsetLeft;
-	 			var y = data.y;
-	 			// + document.body.scrollTop + document.documentElement.scrollTop - canvas.offsetTop;
+	 		  	let x = data.x;
+	 			let y = data.y;
 
 	 			ctx.beginPath();
 	 			ctx.moveTo(prevX, prevY);
@@ -62,53 +56,27 @@ function _init(){
 	 		  	// console.log(x, y, prevX, prevY);
 	 		  	prevX = x;
 	 		  	prevY = y;
-	 		 	//  var index = (data.x + data.y * imgData.width) * 4
-	 			// imgData.data[index+0] = 0;
-	 			// imgData.data[index+1] = 0;
-	 			// imgData.data[index+2] = 0;
-	 			// imgData.data[index+3] = 255;
 	 		  }
 	 		  else if(data.acc == "press"){
-	 	  		var x = data.x ;
-	 	  		// + document.body.scrollLeft + document.documentElement.scrollLeft - canvas.offsetLeft;
-	 	  		var y = data.y ;
-	 	  		// + document.body.scrollTop + document.documentElement.scrollTop - canvas.offsetTop;
+	 	  		let x = data.x ;
+	 	  		let y = data.y ;
 	 		  	ctx.beginPath();
 	 		  	prevX = x;
 	 		  	prevY = y;
 	 		  }
-	 		  //ctx.putImageData(imgData, 0, 0);
 	 		});
 	 	});
-	//};
 
 	button.onclick = function(ev){
 		ev.preventDefault();
 		if(remote.value != null){
 			conn = peer.connect(remote.value);
 			console.log('connecting...');
-	 		var connForm = document.getElementById('connect-form');
+	 		let connForm = document.getElementById('connect-form');
 	 		connForm.style.visibility = 'hidden';
 		}
 		return false;
 	};
-
-	// var width = document.getElementById("brush-size-in");
-	// width.onchange = function(ev){
-	// 	ctx.lineWidth = ev.target.value;
-	// 	bWidth = ctx.lineWidth;
-		// brush=null;
-		// switch(true){
-		// 	case bWidth <= 1 :
-		// 		brush = ctx.createImageData(1, 1);
-		// 		brushD = brush.data;
-		// 		brush[0] = 0;
-		// 		brush[1] = 0;
-		// 		brush[2] = 0;
-		// 		brush[3] = 1*bWidth;
-		// }
-		//console.log(ctx.lineWidth, brush);
-	// }
 }
 </script>
 

@@ -8,6 +8,12 @@ const ctx = canvas.getContext('2d');
 let prevX = null;
 let prevY = null;
 
+let color = 'black';
+document.querySelector('.tool-color').addEventListener('click', function (e) {
+    color = e.target.style.backgroundColor;
+    ctx.strokeStyle = color;
+})
+
 function _init() {
     _initCanvas();
     setNewPeerId(ourPeerEl.value);

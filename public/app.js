@@ -19,6 +19,10 @@ document.querySelectorAll('.tool-color').forEach(function (el) {
     })
 })
 
+document.querySelector('#tool-reset').addEventListener('click', function (e) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+})
+
 function _init() {
     _initCanvas();
     let storedId = localStorage.getItem('peer-id');

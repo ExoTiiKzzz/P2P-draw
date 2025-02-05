@@ -31,10 +31,12 @@
             <canvas height="400" width="900" id="canvas"></canvas>
         </div>
         <div class="flex gap-2">
-            <button class="h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-pen">
+            <button data-stroke="1"
+                    class="tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded">
                 <i class="fas fa-pen"></i>
             </button>
-            <button class="h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-brush">
+            <button data-stroke="3"
+                    class="tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded">
                 <i class="fas fa-paint-brush"></i>
             </button>
             <button class="h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-eraser">
@@ -50,7 +52,8 @@
                     class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-yellow-500"></button>
             <button data-color="#FFFFFF"
                     class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-black"></button>
-            <button class="ml-auto h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-reset">
+            <button class="ml-auto h-6 aspect-square flex justify-center items-center border p-2 rounded"
+                    id="tool-reset">
                 <i class="fas fa-trash"></i>
             </button>
         </div>

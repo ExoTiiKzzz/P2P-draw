@@ -10,6 +10,14 @@ const ctx = canvas.getContext('2d');
 let prevX = null;
 let prevY = null;
 let selfColor = 'black';
+let selfStroke = 1;
+
+document.querySelectorAll('.tool-brush').forEach(function (el) {
+    el.addEventListener('click', function () {
+        selfStroke = el.dataset.stroke;
+        ctx.lineWidth = selfStroke;
+    })
+})
 
 document.querySelectorAll('.tool-color').forEach(function (el) {
     el.addEventListener('click', function () {
@@ -77,6 +85,7 @@ function handleData(data) {
         ctx.moveTo(prevX, prevY);
         ctx.lineTo(x, y);
         ctx.strokeStyle = data.color;
+        ctx.lineWidth = data.lineWidth;
         ctx.stroke();
         prevX = x;
         prevY = y;
@@ -141,7 +150,7 @@ function press(ev) {
     // ctx.lineTo(x, y);
     // ctx.stroke();
     if (typeof (conn) == 'object' && conn.open) {
-        conn.send({acc: 'press', x: x, y: y, color: selfColor});
+        conn.send({acc: 'press', x: x, y: y, color: selfColor, lineWidth: selfStroke});
     }
 
     function drag(ev) {
@@ -158,7 +167,7 @@ function press(ev) {
             prevX = x;
             prevY = y;
             if (typeof (conn) == 'object' && conn.open) {
-                conn.send({acc: 'stroke', x: x, y: y, color: selfColor});
+                conn.send({acc: 'stroke', x: x, y: y, color: selfColor, lineWidth: selfStroke});
             }
         }
     }

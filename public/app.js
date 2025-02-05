@@ -20,7 +20,7 @@ function setNewPeerId(newId) {
     peer = new Peer(newId, {
         host: '10.148.106.161',
         path: 'peerServer',
-        port: location.port
+        port: 9000
     });
 
     peer.on('open', function (id) {

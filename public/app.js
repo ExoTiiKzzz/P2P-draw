@@ -19,8 +19,7 @@ document.querySelectorAll('.tool-color').forEach(function (el) {
 })
 
 document.querySelector('#tool-reset').addEventListener('click', function (e) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    console.log('reset');
+    reset();
     conn.send({acc: 'reset'});
 })
 
@@ -91,7 +90,7 @@ function handleData(data) {
         prevY = y;
         ctx.strokeStyle = selfColor;
     } else if (data.acc === "reset") {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        reset();
     }
 }
 
@@ -168,6 +167,10 @@ function press(ev) {
         ev.target.onmousemove = null;
         document.onmouseup = null;
     }
+}
+
+function reset() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 

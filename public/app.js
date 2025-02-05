@@ -11,9 +11,12 @@ let prevX = null;
 let prevY = null;
 let selfColor = 'black';
 
-document.querySelector('.tool-color').addEventListener('click', function (e) {
-    selfColor = e.target.style.backgroundColor;
-    ctx.strokeStyle = selfColor;
+document.querySelectorAll('.tool-color').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+        console.log(el.dataset.color);
+        selfColor = el.dataset.color;
+        ctx.strokeStyle = selfColor;
+    })
 })
 
 function _init() {

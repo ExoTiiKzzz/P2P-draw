@@ -1,10 +1,10 @@
 export default class Canvas {
-    prevX = 0
-    prevY = 0
-    selfColor = 'black'
-    selfStroke = 1
-    canvas = null
-    ctx = null
+    prevX = 0;
+    prevY = 0;
+    selfColor = 'black';
+    selfStroke = 1;
+    canvas = null;
+    ctx = null;
 
     constructor(elementSelector) {
         this.canvas = document.querySelector(elementSelector);
@@ -41,30 +41,17 @@ export default class Canvas {
     }
 
     press(ev) {
-        let x = ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - this.canvas.offsetLeft;
-        let y = ev.clientY + document.body.scrollTop + document.documentElement.scrollTop - this.canvas.offsetTop;
-        ev.target.addEventListener('mousemove', (ev) => drag(ev));
-        document.addEventListener('mouseup', (ev) => release(ev));
+        let x = ev.clientX - this.canvas.offsetLeft;
+        let y = ev.clientY - this.canvas.offsetTop;
 
-        this.ctx.beginPath();
         this.prevX = x;
         this.prevY = y;
-        // ctx.moveTo(x,y);
-        // ctx.lineTo(x, y);
-        // ctx.stroke();
-        const event = new CustomEvent('canvas-press', {
-            detail: {
-                x: x,
-                y: y,
-                color: this.selfColor,
-                lineWidth: this.selfStroke
-            }
-        });
-        window.dispatchEvent(event);
 
+        // Ajouter les écouteurs uniquement au moment du clic
         const drag = (ev) => {
-            let x = ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - this.canvas.offsetLeft;
-            let y = ev.clientY + document.body.scrollTop + document.documentElement.scrollTop - this.canvas.offsetTop;
+            let x = ev.clientX - this.canvas.offsetLeft;
+            let y = ev.clientY - this.canvas.offsetTop;
+
             if (x !== this.prevX || y !== this.prevY) {
                 this.ctx.beginPath();
                 this.ctx.moveTo(this.prevX, this.prevY);
@@ -73,6 +60,7 @@ export default class Canvas {
 
                 this.prevX = x;
                 this.prevY = y;
+
                 const event = new CustomEvent('canvas-drag', {
                     detail: {
                         x: x,
@@ -83,12 +71,25 @@ export default class Canvas {
                 });
                 window.dispatchEvent(event);
             }
-        }
+        };
 
-        const release = (ev) => {
-            ev.target.addEventListener('mousemove', null);
-            document.addEventListener('mouseup', null);
-        }
+        const release = () => {
+            this.canvas.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', release);
+        };
+
+        this.canvas.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', release);
+
+        const event = new CustomEvent('canvas-press', {
+            detail: {
+                x: x,
+                y: y,
+                color: this.selfColor,
+                lineWidth: this.selfStroke
+            }
+        });
+        window.dispatchEvent(event);
     }
 
     setStroke(stroke) {

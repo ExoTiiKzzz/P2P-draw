@@ -14,3 +14,5 @@ npm run start
 ```
 
 4. Open your browser and navigate to http://localhost:9000
+5. Open a second browser window and navigate to http://localhost:9000
+6. Change your peer id as wanted and use it in the second browser window to start drawing

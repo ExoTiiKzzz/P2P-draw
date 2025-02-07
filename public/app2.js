@@ -10,23 +10,34 @@ const connectForm = document.getElementById('connect-form');
 const canvas = new Canvas('#canvas');
 const peer = new CustomPeer(canvas);
 
-document.querySelectorAll('.tool-brush').forEach(function (el) {
+let currentColor = '#000000';
+
+document.querySelectorAll('.tool').forEach(function (el) {
     el.addEventListener('click', function () {
         removeActiveClass();
         el.classList.add('active');
+    })
+})
+
+document.querySelectorAll('.tool-brush').forEach(function (el) {
+    el.addEventListener('click', function () {
         canvas.setStroke(el.dataset.stroke);
-        if (el.dataset.color) {
-            canvas.setColor(el.dataset.color);
-        }
+        canvas.setColor(currentColor);
+        canvas.setShowArea(false);
     })
 })
 
 document.querySelectorAll('.tool-color').forEach(function (el) {
     el.addEventListener('click', function () {
-        removeActiveClass();
-        el.classList.add('active');
-        canvas.setColor(el.dataset.color);
+        currentColor = el.dataset.color;
+        canvas.setColor(currentColor);
     })
+})
+
+document.querySelector('#tool-eraser').addEventListener('click', function (e) {
+    canvas.setColor('#ffffff');
+    canvas.setStroke(25);
+    canvas.setShowArea(true);
 })
 
 document.querySelector('#tool-reset').addEventListener('click', function (e) {

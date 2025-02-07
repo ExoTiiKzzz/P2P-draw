@@ -1,10 +1,11 @@
 export default class Canvas {
     prevX = 0;
     prevY = 0;
-    selfColor = 'black';
-    selfStroke = 1;
     canvas = null;
     ctx = null;
+    selfColor = 'black';
+    selfStroke = 1;
+    showArea = false;
 
     constructor(elementSelector) {
         this.canvas = document.querySelector(elementSelector);
@@ -14,6 +15,7 @@ export default class Canvas {
         this.ctx.lineWidth = this.selfStroke;
 
         this.canvas.addEventListener('mousedown', (ev) => this.press(ev));
+        this.canvas.addEventListener('mousemove', (ev) => this.showAreaPreview(ev));
     }
 
     handleStroke(x, y, color, lineWidth) {
@@ -100,5 +102,34 @@ export default class Canvas {
     setColor(color) {
         this.selfColor = color;
         this.ctx.strokeStyle = color;
+    }
+
+    setShowArea(show) {
+        this.showArea = show;
+        this.updateCursor();
+    }
+
+    updateCursor() {
+        if (this.showArea) {
+            const cursorSize = this.selfStroke;
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            canvas.width = cursorSize * 2;
+            canvas.height = cursorSize * 2;
+
+            ctx.beginPath();
+            ctx.arc(cursorSize, cursorSize, cursorSize / 2, 0, Math.PI * 2);
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.fillStyle = "transparent";
+            ctx.fill();
+
+            const dataURL = canvas.toDataURL();
+            this.canvas.style.cursor = `url(${dataURL}) ${cursorSize / 2} ${cursorSize / 2}, auto`;
+        } else {
+            this.canvas.style.cursor = "default";
+        }
     }
 }

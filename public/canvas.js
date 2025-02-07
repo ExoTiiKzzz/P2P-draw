@@ -12,6 +12,8 @@ export default class Canvas {
         this.ctx.mozImageSmoothingEnabled = true;
         this.ctx.strokeStyle = this.selfColor;
         this.ctx.lineWidth = this.selfStroke;
+
+        this.canvas.addEventListener('mousedown', (ev) => this.press(ev));
     }
 
     handleStroke(x, y, color, lineWidth) {

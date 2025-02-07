@@ -56,6 +56,9 @@ export default class CustomPeer {
     send(data) {
         if (typeof (this.conn) == 'object' && this.conn.open) {
             this.conn.send(data);
+        } else {
+            console.log('connection not open');
+            console.log(this.conn);
         }
     }
 

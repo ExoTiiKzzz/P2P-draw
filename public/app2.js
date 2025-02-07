@@ -69,5 +69,13 @@ window.addEventListener('peer-close', function (ev) {
     alert('connection closed');
 })
 
+window.addEventListener('canvas-press', function (ev) {
+    peer.send({acc: 'press', x: ev.detail.x, y: ev.detail.y, color: ev.detail.color});
+})
+
+window.addEventListener('canvas-drag', function (ev) {
+    peer.send({acc: 'stroke', x: ev.detail.x, y: ev.detail.y, color: ev.detail.color, lineWidth: ev.detail.lineWidth});
+})
+
 
 _init();

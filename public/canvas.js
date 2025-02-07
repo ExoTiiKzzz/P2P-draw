@@ -50,9 +50,8 @@ export default class Canvas {
         // ctx.moveTo(x,y);
         // ctx.lineTo(x, y);
         // ctx.stroke();
-        if (typeof (conn) == 'object' && conn.open) {
-            conn.send({acc: 'press', x: x, y: y, color: selfColor, lineWidth: selfStroke});
-        }
+        const event = new CustomEvent('canvas-press', {detail: {x: x, y: y, color: selfColor, lineWidth: selfStroke}});
+        window.dispatchEvent(event);
 
         function drag(ev) {
             let x = ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - this.canvas.offsetLeft;
@@ -65,9 +64,15 @@ export default class Canvas {
 
                 this.prevX = x;
                 this.prevY = y;
-                if (typeof (conn) == 'object' && conn.open) {
-                    conn.send({acc: 'stroke', x: x, y: y, color: selfColor, lineWidth: selfStroke});
-                }
+                const event = new CustomEvent('canvas-drag', {
+                    detail: {
+                        x: x,
+                        y: y,
+                        color: selfColor,
+                        lineWidth: selfStroke
+                    }
+                });
+                window.dispatchEvent(event);
             }
         }
 

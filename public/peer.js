@@ -16,14 +16,13 @@ export default class CustomPeer {
             path: 'peerServer',
             port: 9000
         });
-        console.log(this.peer)
 
-        this.peer.on('open', function (id) {
+        this.peer.on('open', (id) => {
             const event = new CustomEvent('peer-open', {detail: id});
             window.dispatchEvent(event);
         });
 
-        this.peer.on('connection', this.handleIncomingConnection);
+        this.peer.on('connection', (_conn) => this.handleIncomingConnection(_conn));
     }
 
     handleIncomingConnection(_conn) {

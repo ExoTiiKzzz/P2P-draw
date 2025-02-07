@@ -36,7 +36,7 @@ export default class CustomPeer {
         let connForm = document.getElementById('connect-form');
         connForm.style.visibility = 'hidden';
 
-        this.conn.on('data', this.handleData);
+        this.conn.on('data', (data) => this.handleData(data));
         this.conn.on('close', function () {
             const event = new CustomEvent('peer-close', {detail: 'connection closed'});
             window.dispatchEvent(event);

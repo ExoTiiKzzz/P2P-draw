@@ -12,6 +12,8 @@ const peer = new CustomPeer(canvas);
 
 document.querySelectorAll('.tool-brush').forEach(function (el) {
     el.addEventListener('click', function () {
+        removeActiveClass();
+        el.classList.add('active');
         canvas.setStroke(el.dataset.stroke);
         if (el.dataset.color) {
             canvas.setColor(el.dataset.color);
@@ -21,6 +23,8 @@ document.querySelectorAll('.tool-brush').forEach(function (el) {
 
 document.querySelectorAll('.tool-color').forEach(function (el) {
     el.addEventListener('click', function () {
+        removeActiveClass();
+        el.classList.add('active');
         canvas.setColor(el.dataset.color);
     })
 })
@@ -29,6 +33,12 @@ document.querySelector('#tool-reset').addEventListener('click', function (e) {
     canvas.reset();
     peer.send({acc: 'reset'});
 })
+
+function removeActiveClass() {
+    document.querySelectorAll('.tool').forEach(function (el) {
+        el.classList.remove('active');
+    })
+}
 
 function _init() {
     let selfStoredId = localStorage.getItem('self-id');

@@ -10,15 +10,21 @@
 </head>
 <body>
 
+<style>
+    .active {
+        border: 3px solid #000;
+    }
+</style>
+
 <div class="p-5 flex justify-center items-center flex-col gap-5">
     <form id="connect-form" name="connect">
         <label for="self-id">Mon id: </label>
-        <input id="self-id" name="id" type="text" class="border rounded"/>
-        <button id="update-self-id" class="bg-green-400 px-6 py-1 rounded">Save</button>
+        <input class="border rounded" id="self-id" name="id" type="text"/>
+        <button class="bg-green-400 px-6 py-1 rounded" id="update-self-id">Save</button>
 
         <label for="remote-id">Me connecter à: </label>
-        <input id="remote-id" type="text" class="border rounded"/>
-        <input id="connect" type="submit" value="connect" class="bg-green-400 px-6 py-1 rounded"/>
+        <input class="border rounded" id="remote-id" type="text"/>
+        <input class="bg-green-400 px-6 py-1 rounded" id="connect" type="submit" value="connect"/>
     </form>
 
     <div class="flex flex-col gap-2">
@@ -26,26 +32,28 @@
             <canvas height="400" id="canvas" width="900"></canvas>
         </div>
         <div class="flex gap-2">
-            <button class="tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded"
+            <button class="tool tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded"
                     data-stroke="1">
                 <i class="fas fa-pen"></i>
             </button>
-            <button class="tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded"
+            <button class="tool tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded"
                     data-stroke="3">
                 <i class="fas fa-paint-brush"></i>
             </button>
-            <button data-stroke="10" data-color="#FFFFFF" class="tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded" id="tool-eraser">
+            <button class="tool tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded" data-color="#FFFFFF"
+                    data-stroke="10"
+                    id="tool-eraser">
                 <i class="fas fa-eraser"></i>
             </button>
-            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-blue-500"
+            <button class="tool tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-blue-500"
                     data-color="#0000FF"></button>
-            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-red-500"
+            <button class="tool tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-red-500"
                     data-color="#FF0000"></button>
-            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-green-500"
+            <button class="tool tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-green-500"
                     data-color="#008000"></button>
-            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-yellow-500"
+            <button class="tool tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-yellow-500"
                     data-color="#FFFF00"></button>
-            <button class="tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-black"
+            <button class="tool tool-color h-6 aspect-square flex justify-center items-center border p-2 rounded bg-black"
                     data-color="#FFFFFF"></button>
             <button class="ml-auto h-6 aspect-square flex justify-center items-center border p-2 rounded"
                     id="tool-reset">

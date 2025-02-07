@@ -13,6 +13,9 @@ const peer = new CustomPeer(canvas);
 document.querySelectorAll('.tool-brush').forEach(function (el) {
     el.addEventListener('click', function () {
         canvas.setStroke(el.dataset.stroke);
+        if (el.dataset.color) {
+            canvas.setColor(el.dataset.color);
+        }
     })
 })
 

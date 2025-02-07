@@ -27,7 +27,6 @@ export default class Canvas {
         this.ctx.stroke();
         this.prevX = x;
         this.prevY = y;
-        this.ctx.strokeStyle = this.selfColor;
     }
 
     handlePress(x, y, color) {

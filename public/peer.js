@@ -12,7 +12,7 @@ export default class CustomPeer {
             this.peer.destroy();
         }
         this.peer = new Peer(newId, {
-            host: '10.148.106.161',
+            host: '/',
             path: 'peerServer',
             port: 9000
         });
@@ -28,7 +28,6 @@ export default class CustomPeer {
     handleIncomingConnection(_conn) {
         this.conn = _conn;
 
-        console.log(this.peer)
         if (this.peer.connections[_conn.peer].length === 1) {
             this.conn = this.peer.connect(_conn.peer);
         }
@@ -56,9 +55,6 @@ export default class CustomPeer {
     send(data) {
         if (typeof (this.conn) == 'object' && this.conn.open) {
             this.conn.send(data);
-        } else {
-            console.log('connection not open');
-            console.log(this.conn);
         }
     }
 

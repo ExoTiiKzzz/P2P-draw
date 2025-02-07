@@ -52,7 +52,14 @@ export default class Canvas {
         // ctx.moveTo(x,y);
         // ctx.lineTo(x, y);
         // ctx.stroke();
-        const event = new CustomEvent('canvas-press', {detail: {x: x, y: y, color: selfColor, lineWidth: selfStroke}});
+        const event = new CustomEvent('canvas-press', {
+            detail: {
+                x: x,
+                y: y,
+                color: this.selfColor,
+                lineWidth: this.selfStroke
+            }
+        });
         window.dispatchEvent(event);
 
         function drag(ev) {
@@ -70,8 +77,8 @@ export default class Canvas {
                     detail: {
                         x: x,
                         y: y,
-                        color: selfColor,
-                        lineWidth: selfStroke
+                        color: this.selfColor,
+                        lineWidth: this.selfStroke
                     }
                 });
                 window.dispatchEvent(event);

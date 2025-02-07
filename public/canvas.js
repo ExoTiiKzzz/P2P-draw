@@ -43,7 +43,7 @@ export default class Canvas {
     press(ev) {
         let x = ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - this.canvas.offsetLeft;
         let y = ev.clientY + document.body.scrollTop + document.documentElement.scrollTop - this.canvas.offsetTop;
-        ev.target.onmousemove = drag;
+        ev.target.addEventListener('mousemove', (ev) => drag(ev));
         document.onmouseup = release;
 
         this.ctx.beginPath();
@@ -62,7 +62,7 @@ export default class Canvas {
         });
         window.dispatchEvent(event);
 
-        function drag(ev) {
+        const drag = (ev) => {
             let x = ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - this.canvas.offsetLeft;
             let y = ev.clientY + document.body.scrollTop + document.documentElement.scrollTop - this.canvas.offsetTop;
             if (x !== this.prevX || y !== this.prevY) {

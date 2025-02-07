@@ -54,6 +54,7 @@ export default class Canvas {
         this.prevX = x;
         this.prevY = y;
 
+
         const drag = (ev) => {
             let x = ev.clientX - this.canvas.offsetLeft;
             let y = ev.clientY - this.canvas.offsetTop;
@@ -66,6 +67,16 @@ export default class Canvas {
                 this.prevX = x;
                 this.prevY = y;
                 this.captureFrame();
+
+                const event = new CustomEvent('canvas-drag', {
+                    detail: {
+                        x: x,
+                        y: y,
+                        color: this.selfColor,
+                        lineWidth: this.selfStroke
+                    }
+                });
+                window.dispatchEvent(event);
             }
         };
 
@@ -74,8 +85,19 @@ export default class Canvas {
             document.removeEventListener('mouseup', release);
         };
 
+
         this.canvas.addEventListener('mousemove', drag);
         document.addEventListener('mouseup', release);
+
+        const event = new CustomEvent('canvas-press', {
+            detail: {
+                x: x,
+                y: y,
+                color: this.selfColor,
+                lineWidth: this.selfStroke
+            }
+        });
+        window.dispatchEvent(event);
     }
 
     save(type) {

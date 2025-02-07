@@ -44,7 +44,7 @@ export default class Canvas {
         let x = ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - this.canvas.offsetLeft;
         let y = ev.clientY + document.body.scrollTop + document.documentElement.scrollTop - this.canvas.offsetTop;
         ev.target.addEventListener('mousemove', (ev) => drag(ev));
-        document.onmouseup = release;
+        document.addEventListener('mouseup', (ev) => release(ev));
 
         this.ctx.beginPath();
         this.prevX = x;
@@ -85,9 +85,9 @@ export default class Canvas {
             }
         }
 
-        function release(ev) {
-            ev.target.onmousemove = null;
-            document.onmouseup = null;
+        const release = (ev) => {
+            ev.target.addEventListener('mousemove', null);
+            document.addEventListener('mouseup', null);
         }
     }
 

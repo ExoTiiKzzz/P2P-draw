@@ -184,6 +184,8 @@ function press(ev) {
 
 function reset() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    selfColor = 'black';
+    selfStroke = 1;
 }
 
 

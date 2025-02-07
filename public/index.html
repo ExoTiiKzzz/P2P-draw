@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
 </head>
 <body>
 
@@ -40,7 +41,8 @@
                     data-stroke="3">
                 <i class="fas fa-paint-brush"></i>
             </button>
-            <button class="tool tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded" data-color="#FFFFFF"
+            <button class="tool tool-brush h-6 aspect-square flex justify-center items-center border p-2 rounded"
+                    data-color="#FFFFFF"
                     data-stroke="10"
                     id="tool-eraser">
                 <i class="fas fa-eraser"></i>
@@ -59,10 +61,25 @@
                     id="tool-reset">
                 <i class="fas fa-trash"></i>
             </button>
+            <select id="save-type">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="webp">WEBP</option>
+                <option value="mp4">MP4</option>
+                <option value="webm">WebM</option>
+            </select>
+            <button class="h-6 aspect-square flex justify-center items-center border p-2 rounded"
+                    id="tool-save">
+                <i class="fas fa-save"></i>
+            </button>
         </div>
     </div>
+
+    <div class="hidden" id="loading">
+        Loading...
+    </div>
 </div>
-<script defer src="app2.js" type="module"></script>
+<script defer src="app.js" type="module"></script>
 </body>
 </html>
 
